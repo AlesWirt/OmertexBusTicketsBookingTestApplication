@@ -1,5 +1,6 @@
 using Common;
 using DAL.Repositories.DbContexts;
+using DAL.Repositories.UnitsOfWorks;
 using Serilog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using BLL.Foundation;
+using Microsoft.AspNetCore.Identity;
+using DomainModel.Models;
+using DAL.Repositories.Stores;
 
 namespace WebApp
 {
@@ -29,6 +34,36 @@ namespace WebApp
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddSingleton<ILog, Logger>();
+            services.AddScoped<IBookingUnitOfWork, BookingUnitOfWork>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUserManagementService, UserManagementService>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            }).AddIdentityCookies();
+
+            services.ConfigureApplicationCookie(configure =>
+            {
+                configure.AccessDeniedPath = "Home/AccessDenied";
+            });
+
+            var builder = services.AddIdentityCore<User>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            });
+
+            builder.AddRoles<Role>();
+            builder.AddRoleStore<RoleStore>();
+            builder.AddUserStore<UserStore>();
+            builder.AddSignInManager<SignInManager<User>>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -39,15 +74,15 @@ namespace WebApp
             }
 
             app.UseSerilogRequestLogging();
+            app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
