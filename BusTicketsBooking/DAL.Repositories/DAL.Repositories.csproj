@@ -20,10 +20,4 @@
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Stores\" />
-    <Folder Include="UnitsOfWorks\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
