@@ -30,7 +30,7 @@ namespace BLL.Foundation
                 throw new ArgumentNullException($"User in {typeof(AccountService).GetMethod("RegistedAsync").Name} method can not be null.");
             }
 
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
             {
@@ -59,7 +59,7 @@ namespace BLL.Foundation
             return result;
         }
 
-        public async Task SingOutAsync()
+        public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
         }

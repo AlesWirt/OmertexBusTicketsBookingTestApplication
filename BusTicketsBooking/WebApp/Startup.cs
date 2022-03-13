@@ -33,6 +33,7 @@ namespace WebApp
                 options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddControllersWithViews();
             services.AddSingleton<ILog, Logger>();
             services.AddScoped<IBookingUnitOfWork, BookingUnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
@@ -47,7 +48,7 @@ namespace WebApp
 
             services.ConfigureApplicationCookie(configure =>
             {
-                configure.AccessDeniedPath = "Home/AccessDenied";
+                configure.AccessDeniedPath = "/Home/AccessDenied";
             });
 
             var builder = services.AddIdentityCore<User>(options =>

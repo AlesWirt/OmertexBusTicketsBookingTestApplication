@@ -18,4 +18,8 @@
     <ProjectReference Include="..\DAL.Repositories\DAL.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,67 @@
+﻿@model WebApp.ViewModels.RegisterViewModel
+
+<div class="align-items-center h-100 pt-5">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body p-5">
+
+                        <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                        <form class="needs-validation" method="post" asp-action="Register" asp-controller="Register" novalidate>
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group row mb-4">
+                                <div>
+                                    <input type="text" class="form-control" asp-for="Login" placeholder="Login" />
+                                    <small class="form-text text-muted">Allowed number of characters: 16.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-4">
+                                <div>
+                                    <input asp-for="Email" class="form-control" placeholder="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-4">
+                                <div>
+                                    <input asp-for="Password" class="form-control" placeholder="Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-4">
+                                <div>
+                                    <div class="input-group">
+                                        <input id="toggle_fld" type="password" asp-for="ConfirmPassword" class="form-control col-6" placeholder="Confirm password" />
+                                        <div class="input-group-append">
+                                            <button id="toggle_btn" class="btn btn-outline-secondary" type="button">
+                                                <i id="toggle_eye" class="fa-solid fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ShowHidePassword" />
+}

@@ -76,7 +76,7 @@ namespace DAL.Repositories.Stores
             return user;
         }
 
-        public async Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -86,7 +86,7 @@ namespace DAL.Repositories.Stores
                 throw new ArgumentNullException($"User in { typeof(UserStore).GetMethod("GetNormalizedUserNameAsync").Name} is null");
             }
 
-            return user.NormalizedName;
+            return Task.FromResult(user.NormalizedName);
         }
 
         public async Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)

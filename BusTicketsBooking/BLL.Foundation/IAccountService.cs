@@ -10,6 +10,6 @@ namespace BLL.Foundation
 
         public Task<SignInResult> SignInAsync(User user, string password);
 
-        public Task SingOutAsync();
+        public Task SignOutAsync();
     }
 }

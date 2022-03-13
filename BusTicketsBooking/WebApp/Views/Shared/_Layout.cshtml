@@ -1,0 +1,46 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<DomainModel.Models.User> signInManager
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Create user</title>
+        <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/twitter-bootstrap/js/bootstrap.min.js" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="~/css/validation.css" />
+        <link rel="stylesheet" href="~/css/styles.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+<body>
+
+    <header class="mb-5">
+        <nav class="navbar navbar-expand flex-column flex-md-row bd-navbar pt-0 pb-0 pl-0">
+            <partial name="_Login" />
+        </nav>
+    </header>
+
+    <div class="row m-1 p-1">
+
+        @*<partial name="_NavigationMenu" />*@
+
+        <div class="container col-9">
+
+            <main role="main">
+                @RenderBody()
+            </main>
+
+        </div>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy; 2022 - Omertex -
+        </div>
+    </footer>
+
+    <script src="~/js/validation-scripts.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
